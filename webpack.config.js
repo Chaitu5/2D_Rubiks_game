@@ -12,10 +12,16 @@ module.exports = {
     filename: 'bundle.js',
     publicPath: '/static/'
   },
+  
+  devServer: {
+	  publicPath: '/static/'
+  },
+  
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin()
   ],
+  
   module: {
     loaders: [
     {
@@ -29,6 +35,12 @@ module.exports = {
       loaders: ['babel'],
       exclude: /node_modules/,
       include: __dirname
-    }]
+    },
+	{
+    test: /\.(jpe?g|png|gif|svg)$/i,
+    loader: 'file?hash=sha512&digest=hex&name=[name].[ext]',
+	exclude: /node_modules/,
+      include: __dirname
+  } ]
   }
 }
